@@ -1,5 +1,7 @@
+import java.util.Iterator;
 
-public class LLQueue<T> implements QueueADT<T> {
+
+public class LLQueue<T> implements QueueADT<T>, Iterable<T>{
 	
 	
 	private ListNode<T> qFront;
@@ -28,7 +30,7 @@ public class LLQueue<T> implements QueueADT<T> {
 	public boolean isEmpty() {
 		return numItems == 0;
 	}
-
+	
 	@Override
 	public void enqueue(T obj) {
 		if (qRear == null){
@@ -38,6 +40,7 @@ public class LLQueue<T> implements QueueADT<T> {
 			qRear.setNext(new ListNode<T>(obj));
 			qRear = qRear.getNext(); 
 		}
+		numItems++;
 	}
 	
 	@Override
@@ -47,6 +50,7 @@ public class LLQueue<T> implements QueueADT<T> {
 		ListNode<T> newHead = qFront.getNext();
 		qFront.setNext(null);
 		qFront = newHead;
+		numItems--;
 		return data;
 	}
 	
@@ -59,6 +63,7 @@ public class LLQueue<T> implements QueueADT<T> {
 			qRear.setNext(obj);
 			qRear = obj;
 		}
+		numItems++;
 	}
 	
 	public ListNode<T> getHead(){
@@ -68,6 +73,22 @@ public class LLQueue<T> implements QueueADT<T> {
 	public ListNode<T> getTail(){
 		return this.qRear;
 	}
-
+	
+	public String toString(){
+		String str = "";
+		Iterator<T> i = this.iterator();
+		int counter = 0;
+		while(i.hasNext()){
+			T data = i.next();
+			str += String.format("%s (%s) [ %s ]\n",
+					counter == 0 ? " < HEAD > "	: counter == numItems - 1 ? " < TAIL > " : "",		
+					counter++, data.toString());
+		}
+		return str;
+	}
+	
+	public Iterator<T> iterator() {
+        return new QueueIterator<T>(qFront);
+	}
 
 }

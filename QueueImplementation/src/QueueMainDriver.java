@@ -5,13 +5,14 @@ public class QueueMainDriver<T> {
 		QueueADT<String> pagesToPrint = new LLQueue<String>();
 		pagesToPrint.enqueue("Bob");
 		pagesToPrint.enqueue("Simon");
-		
-		for(ListNode<String> s = pagesToPrint.getHead(); s != null; s = s.getNext())
-			System.out.println(s.getData());	
-		
+		System.out.println(pagesToPrint);
+		System.out.println("----------------");
 		pagesToPrint.dequeue();
-		for(ListNode<String> s = pagesToPrint.getHead(); s != null; s = s.getNext())
-			System.out.println(s.getData());	
+		System.out.println(pagesToPrint);
+		System.out.println("----------------");
+		String[] names = new String[]{"Jacob", "Veer", "Meg", "Justin", "Chelsea", "Frankie"};
+		for (String s: names){ pagesToPrint.enqueue(s); }
+		System.out.println(pagesToPrint);
 		
 	}
 
