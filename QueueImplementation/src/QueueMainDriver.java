@@ -18,8 +18,10 @@ public class QueueMainDriver<T> {
 		//Palindrome Checking
 		QueueADT<Character> characters = new LLQueue<Character>();
 		String strToCheck = "level";
-		for(int i = 0; i < strToCheck.length(); i++)
-			characters.enqueue(strToCheck.charAt(i));
+		for(char c: strToCheck.toCharArray())
+			characters.enqueue(c);
+		
+		System.out.println(characters);
 		
 		
 	}
