@@ -9,6 +9,8 @@ public class LLQueue<T> implements QueueADT<T>, Iterable<T>{
 	private int numItems;
 	
 	public LLQueue() {
+		qFront = null;
+		qRear = null;
 	}
 	
 	public LLQueue(ListNode<T> head){
@@ -31,38 +33,42 @@ public class LLQueue<T> implements QueueADT<T>, Iterable<T>{
 		return numItems == 0;
 	}
 	
+	public int getSize() { 
+		return numItems;
+	}
+	
 	@Override
 	public void enqueue(T obj) {
-		if (qRear == null){
-			qFront = new ListNode<T>(obj);
-			qRear = qFront;
-		} else {
-			qRear.setNext(new ListNode<T>(obj));
-			qRear = qRear.getNext(); 
-		}
+		ListNode<T> newNode = new ListNode<T>(obj);
+		if (qRear == null)
+			qFront = newNode;
+		else 
+			qRear.setNext(newNode);
+		
+		qRear = newNode;
 		numItems++;
 	}
 	
 	@Override
 	public T dequeue() throws EmptyQueueException {
-		if (qFront == null) throw new EmptyQueueException("Attempt to dequeue from an Empty Queue!");
-		T data = qFront.getData();
-		ListNode<T> newHead = qFront.getNext();
-		qFront.setNext(null);
-		qFront = newHead;
-		numItems--;
-		return data;
+		if (isEmpty())
+			throw new EmptyQueueException("Attempt to dequeue from an Empty Queue!");
+		else {
+			T data = qFront.getData();
+			qFront = qFront.getNext();
+			if (qFront == null) qRear = null;
+			numItems--;
+			return data;
+		}
 	}
 	
 	@Override
 	public void enqueue(ListNode<T> obj){
-		if (qRear == null){
+		if (qRear == null)
 			qFront = obj;
-			qRear = obj;
-		} else {
+		 else 
 			qRear.setNext(obj);
-			qRear = obj;
-		}
+		qRear = obj;
 		numItems++;
 	}
 	
@@ -75,15 +81,12 @@ public class LLQueue<T> implements QueueADT<T>, Iterable<T>{
 	}
 	
 	public String toString(){
-		String str = "";
-		Iterator<T> i = this.iterator();
-		int counter = 0;
-		while(i.hasNext()){
-			T data = i.next();
+		String str; int counter; Iterator<T> i;
+		str = ""; counter = 0; i = this.iterator();
+		while(i.hasNext())
 			str += String.format("%s (%s) [ %s ]\n",
 					counter == 0 ? " < HEAD > "	: counter == numItems - 1 ? " < TAIL > " : "",		
-					counter++, data.toString());
-		}
+					counter++, i.next().toString());
 		return str;
 	}
 	

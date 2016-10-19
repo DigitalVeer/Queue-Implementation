@@ -41,7 +41,12 @@ public interface QueueADT<T> {
 	 * @return tail node
 	 */
 	ListNode<T> getTail();
-
+	
+	/**
+	 * returns the number of nodes in queue
+	 * @return number of nodes in queue
+	 */
+	int getSize();
 
 	
 	

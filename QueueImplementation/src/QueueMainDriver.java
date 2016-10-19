@@ -14,6 +14,14 @@ public class QueueMainDriver<T> {
 		for (String s: names){ pagesToPrint.enqueue(s); }
 		System.out.println(pagesToPrint);
 		
+		
+		//Palindrome Checking
+		QueueADT<Character> characters = new LLQueue<Character>();
+		String strToCheck = "level";
+		for(int i = 0; i < strToCheck.length(); i++)
+			characters.enqueue(strToCheck.charAt(i));
+		
+		
 	}
 
 }
